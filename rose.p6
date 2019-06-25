@@ -12,7 +12,7 @@ sub MAIN($token) {
 
     react {
         whenever $discord.messages -> $message {
-            $perspective.submit(:message($message.content));
+            $perspective.submit($message);
         }
     }
 }
