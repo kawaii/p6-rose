@@ -16,8 +16,11 @@ sub MAIN($token) {
         whenever $discord.messages -> $message {
             my $toxicity = $perspective.submit(:content($message.content));
 
+            $action-handler.moderate-content($message, $toxicity);
+
             if %*ENV<PERSPECTIVE_DEBUG> {
                 $action-handler.debug-reaction($message, $toxicity);
+                (await $message.channel).send-message($message.id ~ " toxicity rating: $toxicity.")
             }
         }
     }
