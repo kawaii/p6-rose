@@ -1,8 +1,10 @@
 use Rose::ContentAnalysis::Perspective;
+use Rose::Controller::Actions;
 
 use API::Discord;
 
 my $perspective = Rose::ContentAnalysis::Perspective.new;
+my $action-handler = Rose::Controller::Actions.new;
 
 sub MAIN($token) {
     my $discord = API::Discord.new(:$token);
@@ -12,7 +14,11 @@ sub MAIN($token) {
 
     react {
         whenever $discord.messages -> $message {
-            $perspective.submit($message);
+            my $toxicity = $perspective.submit(:content($message.content));
+
+            if %*ENV<PERSPECTIVE_DEBUG> {
+                $action-handler.debug-reaction($message, $toxicity);
+            }
         }
     }
 }
