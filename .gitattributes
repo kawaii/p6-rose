@@ -1,0 +1,4 @@
+* text=auto eol=lf
+.gitattributes export-ignore
+/README.md export-ignore
+/LICENSE export-ignore
