@@ -22,8 +22,11 @@ await $discord.ready;
 react {
     whenever $discord.messages -> $message {
         my $toxicity = $perspective.submit(:content($message.content));
+        $psql.insert-record(:$message, :$toxicity);
 
-        $action-handler.moderate-content(:$message, :$toxicity);
+        if %configuration<auto-moderation> == True {
+            $action-handler.moderate-content(:$message, :$toxicity);
+        }
 
         if %*ENV<PERSPECTIVE_DEBUG> {
             $action-handler.debug-reaction(:$message, :$toxicity);

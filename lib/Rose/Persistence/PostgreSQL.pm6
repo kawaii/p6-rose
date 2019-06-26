@@ -6,7 +6,7 @@ has $.dsn is required;
 has $!dbi;
 
 submethod TWEAK() {
-    $!dbi = DB::Pg.new(:connection($!dsn));
+    $!dbi = DB::Pg.new(:conninfo($!dsn));
 }
 
 method seed-database {
@@ -24,6 +24,9 @@ method seed-database {
     $query.finish;
 }
 
-method insert-record(:$message) {
-
+method insert-record(:$message, :$toxicity) {
+    my $query = $!dbi.db.prepare('INSERT INTO rose_messages ("user-id", "message-id", "message-content", "message-timestamp", "perspective-score")
+                                  VALUES ($1, $2, $3, $4, $5);');
+    $query.execute($message.author.id, $message.id, $message.content, DateTime.now, $toxicity);
+    $query.finish;
 }
