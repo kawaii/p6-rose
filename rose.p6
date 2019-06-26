@@ -1,6 +1,7 @@
+use Rose::Configuration;
 use Rose::ContentAnalysis::Perspective;
 use Rose::Controller::Actions;
-use Rose::Configuration;
+use Rose::Persistence::PostgreSQL;
 
 use API::Discord;
 
@@ -8,7 +9,6 @@ my $configuration-handler = Rose::Configuration.new;
 my %configuration = $configuration-handler.configuration;
 
 my $perspective = Rose::ContentAnalysis::Perspective.new(perspective-token => %configuration<perspective-token>);
-
 my $action-handler = Rose::Controller::Actions.new;
 
 my $discord = API::Discord.new(:token(%configuration<discord-token>));
