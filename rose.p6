@@ -8,6 +8,9 @@ use API::Discord;
 my $configuration-handler = Rose::Configuration.new;
 my %configuration = $configuration-handler.configuration;
 
+my $psql = Rose::Persistence::PostgreSQL.new(:dsn($configuration-handler.generate-dsn));
+$psql.seed-database;
+
 my $perspective = Rose::ContentAnalysis::Perspective.new(perspective-token => %configuration<perspective-token>);
 my $action-handler = Rose::Controller::Actions.new;
 

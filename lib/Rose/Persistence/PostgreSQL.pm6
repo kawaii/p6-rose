@@ -10,7 +10,7 @@ submethod TWEAK() {
 }
 
 method seed-database {
-    my $seed = $!dbi.prepare(
+    my $query = $!dbi.db.prepare(
             'CREATE TABLE IF NOT EXISTS rose_messages (
                 "user-id" bigint,
                 "message-id" bigint,
@@ -20,8 +20,8 @@ method seed-database {
                 PRIMARY KEY ("user-id", "message-id")
             )'
     );
-    $seed.execute;
-    $seed.finish;
+    $query.execute;
+    $query.finish;
 }
 
 method insert-record(:$message) {
