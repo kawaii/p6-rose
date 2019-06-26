@@ -1,0 +1,24 @@
+services:
+  postgresql:
+    environment:
+      POSTGRES_DB: rose
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: rose
+    healthcheck:
+      interval: 30s
+      retries: 3
+      test:
+      - CMD-SHELL
+      - pg_isready -U rose
+      timeout: 30s
+    image: postgres:11.3-alpine
+    ports:
+    - 127.0.0.1:5432:5432/tcp
+    restart: on-failure
+    volumes:
+    - postgresql-data:/var/lib/postgresql/data:rw
+
+version: '3.7'
+
+volumes:
+  postgresql-data: {}
