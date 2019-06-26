@@ -22,6 +22,7 @@ Create the file `config.json` in the root of the project directory. It should lo
 {
   "discord-token": "",
   "perspective-token": "",
+  "command-prefix": "+",
   "auto-moderation": false,
   "postgresql-host": "127.0.0.1",
   "postgresql-port": 5432,
