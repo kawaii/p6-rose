@@ -1,5 +1,7 @@
 * text=auto eol=lf
 .gitattributes export-ignore
 .gitignore export-ignore
+/Dockerfile
+/docker-compose.yml
 /README.md export-ignore
 /LICENSE export-ignore
