@@ -21,8 +21,10 @@ await $discord.ready;
 
 react {
     whenever $discord.messages -> $message {
+        my $guild = $message.channel.result.guild.result;
         my $toxicity = $perspective.submit(:content($message.content));
-        $psql.insert-record(:$message, :$toxicity);
+
+        $psql.insert-record(:$guild, :$message, :$toxicity);
 
         if %configuration<auto-moderation> == True {
             $action-handler.moderate-content(:$message, :$toxicity);

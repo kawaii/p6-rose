@@ -12,21 +12,22 @@ submethod TWEAK() {
 method seed-database {
     my $query = $!dbi.db.prepare(
             'CREATE TABLE IF NOT EXISTS rose_messages (
+                "guild-id" bigint,
                 "user-id" bigint,
                 "message-id" bigint,
                 "message-content" text,
                 "message-timestamp" timestamptz,
                 "perspective-score" numeric,
-                PRIMARY KEY ("user-id", "message-id")
+                PRIMARY KEY ("guild-id", "user-id", "message-id")
             )'
     );
     $query.execute;
     $query.finish;
 }
 
-method insert-record(:$message, :$toxicity) {
-    my $query = $!dbi.db.prepare('INSERT INTO rose_messages ("user-id", "message-id", "message-content", "message-timestamp", "perspective-score")
-                                  VALUES ($1, $2, $3, $4, $5);');
-    $query.execute($message.author.id, $message.id, $message.content, DateTime.now, $toxicity);
+method insert-record(:$guild, :$message, :$toxicity) {
+    my $query = $!dbi.db.prepare('INSERT INTO rose_messages ("guild-id", "user-id", "message-id", "message-content", "message-timestamp", "perspective-score")
+                                  VALUES ($1, $2, $3, $4, $5, $6);');
+    $query.execute($guild.id, $message.author.id, $message.id, $message.content, DateTime.now, $toxicity);
     $query.finish;
 }
