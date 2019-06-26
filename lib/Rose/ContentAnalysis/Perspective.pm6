@@ -1,4 +1,5 @@
 unit class Rose::ContentAnalysis::Perspective;
+use Rose::Configuration;
 
 use API::Perspective;
 
