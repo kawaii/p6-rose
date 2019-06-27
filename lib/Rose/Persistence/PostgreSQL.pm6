@@ -36,5 +36,5 @@ method toxicity-aggregate(:$guild, :$user) {
     my $query = $!dbi.db.prepare('SELECT AVG("perspective-score") FROM rose_messages WHERE "guild-id" = $1 AND "user-id" = $2 LIMIT 200;');
     my $result = $query.execute($guild, $user);
     $query.finish;
-    return $result.value;
+    return $result.value // 0;
 }
