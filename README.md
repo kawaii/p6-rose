@@ -45,6 +45,18 @@ There is some somewhat experimental Docker relevant material in this repository 
 
 ### Usage
 
+#### ... via [`docker build`](https://docs.docker.com/engine/reference/commandline/build/)
+```sh
+docker build \
+  --build-arg BUILD_AUTHORS="Kane 'kawaii' Valentine <kawaii@cute.im>" \
+  --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+  --build-arg BUILD_SHA1SUM=ae722689e2ed242138cfeb1a3cc6ee7dd14b61d0 \
+  --build-arg BUILD_VERSION=0.1rc1 \
+  --tag kawaii/rose:0.1rc1 \
+$PWD
+
+```
+
 #### ... via [`docker container run`](https://docs.docker.com/engine/reference/commandline/container_run/)
 
 ```
