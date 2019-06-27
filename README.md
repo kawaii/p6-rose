@@ -76,3 +76,15 @@ services:
     - $PWD/config.json:/opt/config.json:ro
 version: '3.7'
 ```
+
+### FAQ
+
+#### Why Perl 6?
+
+Why not Perl 6? This is Discord _Hack Week_, not Discord write-everything-in-JS week.
+
+Want to get started with Perl 6 yourself? Check out the [Rakudo compiler](https://rakudo.org/).
+
+#### What library does Rose use?
+
+Rose uses the experimental and unfinished Perl 6 [`API::Discord`](https://github.com/shuppet/p6-api-discord) library.
