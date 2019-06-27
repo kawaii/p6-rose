@@ -15,12 +15,12 @@ RUN set -ex; \
 	\
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-	    build-essential \
+		build-essential \
 		libpq5 \
 		libpq-dev \
 		libssl1.0-dev \
 	; \
-    apt-get clean; \
+	apt-get clean; \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 	; \
 	zef install --/test \
