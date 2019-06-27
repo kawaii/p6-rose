@@ -39,6 +39,14 @@ In order to see more of the inner workings of Rose, you can set `PERSPECTIVE_DEB
 
 ![image](https://user-images.githubusercontent.com/12242877/60193711-10d8b300-9830-11e9-9da4-4ccc785bfbc6.png)
 
+## Commands
+
+### `+aggregate $user-id`
+
+Returns the average toxicity score of a user over their last 200 messages, and categorises themas either a low, medium or high risk user. Future iterations of Rose will have the option to automatically kick high risk users (those with an average score of 0.75 or higher across their last 200 messages).
+
+![image](https://user-images.githubusercontent.com/12242877/60301309-f2a2ae00-9928-11e9-9dae-4d0076fdb7d7.png)
+
 ## Docker
 
 There is some somewhat experimental Docker relevant material in this repository - mostly included for my own testing and debugging purposes but it's usable if you know what you're doing. Note that in all cases you still must provide an appropriate PostgreSQL server (whether running remotely or in a container on the same Docker virtual network) for Rose to function. This information should be defined within your `config.json` and bind-mounted into the container. You can use the `ROSE_CONFIG` variable to inform Rose of where her configuration file has been mounted.
