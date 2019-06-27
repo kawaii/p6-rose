@@ -43,7 +43,7 @@ In order to see more of the inner workings of Rose, you can set `PERSPECTIVE_DEB
 
 ### `+aggregate $user-id`
 
-Returns the average toxicity score of a user over their last 200 messages, and categorises themas either a low, medium or high risk user. Future iterations of Rose will have the option to automatically kick high risk users (those with an average score of 0.75 or higher across their last 200 messages).
+Returns the average toxicity score of a user over their last 200 messages, and categorises them as either a low, medium or high risk user. Future iterations of Rose will have the option to automatically kick high risk users (those with an average score of 0.75 or higher across their last 200 messages).
 
 ![image](https://user-images.githubusercontent.com/12242877/60301309-f2a2ae00-9928-11e9-9dae-4d0076fdb7d7.png)
 
@@ -100,3 +100,13 @@ Rose uses the experimental and unfinished Perl 6 [`API::Discord`](https://github
 #### Perspective API? Why don't you use Tensorflow's toxicity model?
 
 A number of reasons. Tensorflow's model was trained on a single dataset of toxic comments (albeit 2 million of them) whereas Perspective is receiving new data for analysis on a daily basis. It seems to be a far more accurate gauge of toxicity at the current time. Another reason is processing, it's much better to offload content analysis to another service, and let your application just take action on the results.
+
+#### The bot crashes, disconnects and does other weird things, what the heck?
+
+Due to upstream bugs in [`Cro::WebSocket`](https://github.com/croservices/cro-websocket) ([#15](https://github.com/croservices/cro-websocket/issues/15) and [#22](https://github.com/croservices/cro-websocket/issues/22)), there will be occasions when the bot drops out, fails to reconnect or just crashes for seemingly no reason.
+
+#### Who is Rose?
+
+My girlfriend, you can join her server here. :)
+
+[![image](https://discordapp.com/api/guilds/262268073363505164/embed.png?style=banner2)](https://discord.gg/cute)
