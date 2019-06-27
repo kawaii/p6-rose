@@ -88,3 +88,7 @@ Want to get started with Perl 6 yourself? Check out the [Rakudo compiler](https:
 #### What library does Rose use?
 
 Rose uses the experimental and unfinished Perl 6 [`API::Discord`](https://github.com/shuppet/p6-api-discord) library.
+
+#### Perspective API? Why don't you use Tensorflow's toxicity model?
+
+A number of reasons. Tensorflow's model was trained on a single dataset of toxic comments (albeit 2 million of them) whereas Perspective is receiving new data for analysis on a daily basis. It seems to be a far more accurate gauge of toxicity at the current time. Another reason is processing, it's much better to offload content analysis to another service, and let your application just take action on the results.
