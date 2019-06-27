@@ -3,10 +3,11 @@ unit class Rose::Controller::Actions;
 method aggregate-results { ... }
 
 method moderate-content(:$message, :$toxicity) {
-    if $toxicity < .5 {
-        say "probably a good message!";
-    } elsif $toxicity > .5 {
-        say "probably a bad message!";
+    given $toxicity {
+        when .0 < * <= .3 { say "good message! :)" }
+        when .3 < * <= .5 { say "probably fine! :P" }
+        when .5 < * <= .7 { say "probaby a bad message! >:)" }
+        when .7 < * { say "most certainly a bad message! >:(" }
     }
 }
 
@@ -15,8 +16,14 @@ method bisect-content(:$content, :@badwords) {
     return $bisected-message;
 }
 
+method warn-user() { ... }
+
+method kick-user() { ... }
+
+method ban-user() { ... }
+
 method debug-reaction(:$message, :$toxicity) {
-    given ($toxicity) {
+    given $toxicity {
         when .0 < * <= .1 { $message.add-reaction('😄') }
         when .1 < * <= .2 { $message.add-reaction('😃') }
         when .2 < * <= .3 { $message.add-reaction('🙂') }
