@@ -39,3 +39,28 @@ In order to see more of the inner workings of Rose, you can set `PERSPECTIVE_DEB
 
 ![image](https://user-images.githubusercontent.com/12242877/60193711-10d8b300-9830-11e9-9da4-4ccc785bfbc6.png)
 
+## Docker
+
+There is some somewhat experimental Docker relevant material in this repository - mostly included for my own testing and debugging purposes but it's usable if you know what you're doing. Note that in all cases you still must provide an appropriate PostgreSQL server (whether running remotely or in a container on the same Docker virtual network) for Rose to function. This information should be defined within your `config.json` and bind-mounted into the container. You can use the `ROSE_CONFIG` variable to inform Rose of where her configuration file has been mounted.
+
+### Usage
+
+#### ... via [`docker container run`](https://docs.docker.com/engine/reference/commandline/container_run/)
+
+```
+docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc1  
+```
+
+#### ... via [`docker stack deploy`](https://docs.docker.com/engine/reference/commandline/stack_deploy/) or [`docker-compose`](https://github.com/docker/compose)
+
+```yaml
+services:
+  rose:
+    environment:
+      ROSE_CONFIG: "/opt/config.json"
+    image: kawaii/rose:0.1rc1
+    restart: on-failure
+    volumes:
+    - $PWD/config.json:/opt/config.json:ro
+version: '3.7'
+```
