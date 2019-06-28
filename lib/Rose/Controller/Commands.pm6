@@ -55,8 +55,24 @@ method toxicity-aggregate($cmd-obj) {
             when .7 ^.. Inf { 'HIGH', 14221312 }
         }
 
-        my $response = "<@$user-id> aggregate threat level $result.round(0.01).\nRisk level classification: $risk.";
+        return self.generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour);
     }
+}
+
+method generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour) {
+    my %embed-payload = embed => {
+        author => {
+            icon_url => "https://cdn.discordapp.com/embed/avatars/$user-id.png",
+            name => "<@$user-id>"
+        },
+        color => $colour,
+        fields => [
+            {name => "Aggregate threat level:", value => "```$result.round(0.01)```"},
+            {name => "Risk level classification:", value => "```$risk```"}
+        ],
+        footer => {text => "ID: $user-id"}};
+
+    return to-json(%embed-payload);
 }
 
 method ping {
