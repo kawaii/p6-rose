@@ -33,7 +33,7 @@ method insert-record(:$guild, :$message, :$toxicity) {
 }
 
 method toxicity-aggregate(:$guild, :$user) {
-    my $query = $!dbi.db.prepare('SELECT AVG("perspective-score") FROM rose_messages WHERE "guild-id" = $1 AND "user-id" = $2 LIMIT 200;');
+    my $query = $!dbi.db.prepare('SELECT AVG(a."perspective-score") FROM (SELECT "perspective-score" FROM rose_messages WHERE "guild-id" = $1 AND "user-id" = $2 ORDER BY "message-timestamp" DESC LIMIT 200) a;');
     my $result = $query.execute($guild, $user);
     $query.finish;
     return $result.value // 0;
