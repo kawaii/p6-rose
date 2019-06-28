@@ -8,6 +8,9 @@ has $.commands;
 submethod TWEAK () {
     $!commands = Command::Despatch.new(
         command-table => {
+            help => -> $self {
+                self.help;
+            },
             aggregate => -> $self {
                 self.toxicity-aggregate($self);
             },
@@ -28,6 +31,10 @@ method despatch($str, :$payload) {
     $.commands.run($str, :$payload);
 }
 
+method help {
+    ...
+}
+
 method toxicity-aggregate($cmd-obj) {
     my $user-id = $cmd-obj.args;
 
@@ -43,9 +50,9 @@ method toxicity-aggregate($cmd-obj) {
         my $response = '_sad trombone_ :trumpet:';
     } else {
         my $risk = do given $result {
-            when .0 < * <= .4 { $risk = "**LOW**" }
-            when .4 < * <= .7 { $risk = "**MEDIUM**" }
-            when .7 < * { $risk = "**HIGH**" }
+            when 0 ^.. .4 { '**LOW**' }
+            when .4 ^.. .7 { '**MEDIUM**' }
+            when .7 ^.. Inf { '**HIGH**' }
         }
 
         my $response = "<@$user-id> aggregate threat level $result.round(0.01).\nRisk level classification: $risk.";
