@@ -42,17 +42,17 @@ method toxicity-aggregate($cmd-obj) {
         $user-id = $/;
     }
 
-    unless $user-id ~~ / <(\d+)> / { return my $response = '_sad trombone_ :trumpet:'; }
+    unless $user-id ~~ / <(\d+)> / { return '_sad trombone_ :trumpet:'; }
 
     my $result = $!db.toxicity-aggregate(:user($user-id), :guild($cmd-obj.payload<guild-id>));
 
     if $result == 0 {
-        my $response = '_sad trombone_ :trumpet:';
+        return '_sad trombone_ :trumpet:';
     } else {
-        my $risk = do given $result {
-            when 0 ^.. .4 { '**LOW**' }
-            when .4 ^.. .7 { '**MEDIUM**' }
-            when .7 ^.. Inf { '**HIGH**' }
+        my ($risk, $colour) = do given $result {
+            when 0 ^.. .4 { 'LOW', 50712 }
+            when .4 ^.. .7 { 'MEDIUM', 15653632 }
+            when .7 ^.. Inf { 'HIGH', 14221312 }
         }
 
         my $response = "<@$user-id> aggregate threat level $result.round(0.01).\nRisk level classification: $risk.";
