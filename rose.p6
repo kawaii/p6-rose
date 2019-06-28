@@ -29,8 +29,8 @@ react {
             my $c = $message.content;
             $c ~~ s/ ^ "%configuration<command-prefix>" //;
             my %payload = guild-id => $message.channel.result.guild-id;
-            my $response = $commands.despatch($c, :%payload);
-            $message.channel.result.send-message($response);
+            my %response = $commands.despatch($c, :%payload);
+            $message.channel.result.send-message(|%response);
         } else {
             $psql.insert-record(:$guild, :$message, :$toxicity);
 

@@ -24,7 +24,7 @@ submethod TWEAK () {
 method despatch($str, :$payload) {
     CATCH {
         when X::Command::Despatch::InvalidCommand {
-            return '_confused trombone_ :trumpet::question:';
+            return content => '_confused trombone_ :trumpet::question:';
         }
     }
 
@@ -42,12 +42,12 @@ method toxicity-aggregate($cmd-obj) {
         $user-id = $/;
     }
 
-    unless $user-id ~~ / <(\d+)> / { return '_sad trombone_ :trumpet:'; }
+    unless $user-id ~~ / <(\d+)> / { return content => '_sad trombone_ :trumpet:'; }
 
     my $result = $!db.toxicity-aggregate(:user($user-id), :guild($cmd-obj.payload<guild-id>));
 
     if $result == 0 {
-        return '_sad trombone_ :trumpet:';
+        return content => '_sad trombone_ :trumpet:';
     } else {
         my ($risk, $colour) = do given $result {
             when 0 ^.. .4 { 'LOW', 50712 }
@@ -55,7 +55,7 @@ method toxicity-aggregate($cmd-obj) {
             when .7 ^.. Inf { 'HIGH', 14221312 }
         }
 
-        return self.generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour);
+        return embed => self.generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour);
     }
 }
 
@@ -76,5 +76,5 @@ method generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour) {
 }
 
 method ping {
-    return my $response = 'pong!'
+    return content => 'pong!'
 }
