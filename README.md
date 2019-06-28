@@ -58,9 +58,9 @@ There is some somewhat experimental Docker relevant material in this repository 
 docker build \                
   --build-arg BUILD_AUTHORS="Kane 'kawaii' Valentine <kawaii@cute.im>" \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-  --build-arg BUILD_SHA1SUM=b08bac18d5c66fa94e5c4a5714a5e06159bc2d73 \
-  --build-arg BUILD_VERSION=0.1rc2 \
-  --tag kawaii/rose:0.1rc2 \
+  --build-arg BUILD_SHA1SUM=134b91152c9ba9d03387f235e25f8323f056d179 \
+  --build-arg BUILD_VERSION=0.1rc3 \
+  --tag kawaii/rose:0.1rc3 \
   --tag kawaii/rose:latest \
 $PWD
 ```
@@ -68,7 +68,7 @@ $PWD
 #### ... via [`docker container run`](https://docs.docker.com/engine/reference/commandline/container_run/)
 
 ```
-docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc2
+docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc3
 ```
 
 #### ... via [`docker stack deploy`](https://docs.docker.com/engine/reference/commandline/stack_deploy/) or [`docker-compose`](https://github.com/docker/compose)
@@ -78,7 +78,7 @@ services:
   rose:
     environment:
       ROSE_CONFIG: "/opt/config.json"
-    image: kawaii/rose:0.1rc2
+    image: kawaii/rose:0.1rc3
     restart: on-failure
     volumes:
     - $PWD/config.json:/opt/config.json:ro
@@ -96,6 +96,14 @@ Want to get started with Perl 6 yourself? Check out the [Rakudo compiler](https:
 #### What library does Rose use?
 
 Rose uses the experimental and unfinished Perl 6 [`API::Discord`](https://github.com/shuppet/p6-api-discord) library.
+
+#### What is `API::Discord`?
+
+[`API::Discord`](https://github.com/shuppet/p6-api-discord) is a free and open source Discord API wrapper written in Perl 6 by [Shuppet Laboratories](https://github.com/shuppet).
+
+At the time of writing this document, the library is unfinished and only features a fraction of the full Discord API specification. Due to this setback we were not able to implement all of the features we wanted, although it did enable us to fix a number of existing bugs in the library.
+
+There are dangers of using such a prototype component in any project, but I think that Rose is a good example of what people can achieve in the space of a few evenings - hacking away in true open source spirit.
 
 #### Perspective API? Why don't you use Tensorflow's toxicity model?
 
