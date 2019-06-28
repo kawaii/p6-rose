@@ -37,33 +37,37 @@ method help {
 
 method toxicity-aggregate($cmd-obj) {
     my $user-id = $cmd-obj.args;
-
-    if $cmd-obj.args ~~ / '<@' '!'? <(\d+)> '>' / {
-        $user-id = $/;
-    }
+    my %payload = $cmd-obj.payload;
 
     unless $user-id ~~ / <(\d+)> / { return content => '_sad trombone_ :trumpet:'; }
 
-    my $result = $!db.toxicity-aggregate(:user($user-id), :guild($cmd-obj.payload<guild-id>));
+    if $cmd-obj.args ~~ / '<@' '!'? <(\d+)> '>' / {
+        $user-id = $/.Int;
+    }
+
+    my $result = $!db.toxicity-aggregate(:user($user-id), :guild(%payload<guild>.id));
 
     if $result == 0 {
         return content => '_sad trombone_ :trumpet:';
     } else {
-        my ($risk, $colour) = do given $result {
-            when 0 ^.. .4 { 'LOW', 50712 }
-            when .4 ^.. .7 { 'MEDIUM', 15653632 }
-            when .7 ^.. Inf { 'HIGH', 14221312 }
-        }
-
-        return embed => self.generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour);
+        return embed => self.generate-toxicity-embed(:$user-id, :$result, :guild(%payload<guild>));
     }
 }
 
-method generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour) {
+method generate-toxicity-embed(:$user-id, :$result, :$guild) {
+    my $member = $guild.get-member($user-id);
+    my $user = $guild.api.inflate-user($member<user>);
+
+    my ($risk, $colour) = do given $result {
+        when 0 ^.. .4 { 'LOW', 50712 }
+        when .4 ^.. .7 { 'MEDIUM', 15653632 }
+        when .7 ^.. Inf { 'HIGH', 14221312 }
+    }
+
     my %embed-payload =
         author => {
-            icon_url => "https://cdn.discordapp.com/embed/avatars/$user-id.png",
-            name => "<@$user-id>"
+            icon_url => "https://cdn.discordapp.com/avatars/$user-id/{$user.avatar-hash}.png",
+            name => $user.username ~ '#' ~ $user.discriminator
         },
         color => $colour,
         fields => [

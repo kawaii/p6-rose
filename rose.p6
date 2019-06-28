@@ -28,7 +28,11 @@ react {
         if ($message.content ~~ / ^ "%configuration<command-prefix>" /) {
             my $c = $message.content;
             $c ~~ s/ ^ "%configuration<command-prefix>" //;
-            my %payload = guild-id => $message.channel.result.guild-id;
+            my %payload =
+                guild => $message.channel.result.guild.result,
+                user => $message.author,
+                message => $message,
+            ;
             my %response = $commands.despatch($c, :%payload);
             $message.channel.result.send-message(|%response);
         } else {
