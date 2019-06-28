@@ -21,7 +21,7 @@ submethod TWEAK () {
 method despatch($str, :$payload) {
     CATCH {
         when X::Command::Despatch::InvalidCommand {
-            return "Invalid command."
+            return '_confused trombone_ :trumpet::question:';
         }
     }
 
