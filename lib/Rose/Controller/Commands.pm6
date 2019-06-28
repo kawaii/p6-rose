@@ -10,6 +10,9 @@ submethod TWEAK () {
         command-table => {
             aggregate => -> $self {
                 self.toxicity-aggregate($self);
+            },
+            ping => -> $self {
+                self.ping;
             }
         }
     );
@@ -32,12 +35,12 @@ method toxicity-aggregate($cmd-obj) {
         $user-id = $/;
     }
 
-    unless $user-id ~~ / <(\d+)> / { return my $response = "Invalid user."; }
+    unless $user-id ~~ / <(\d+)> / { return my $response = '_sad trombone_ :trumpet:'; }
 
     my $result = $!db.toxicity-aggregate(:user($user-id), :guild($cmd-obj.payload<guild-id>));
 
     if $result == 0 {
-        my $response = "Invalid user.";
+        my $response = '_sad trombone_ :trumpet:';
     } else {
         my $risk = do given $result {
             when .0 < * <= .4 { $risk = "**LOW**" }
@@ -47,4 +50,8 @@ method toxicity-aggregate($cmd-obj) {
 
         my $response = "<@$user-id> aggregate threat level $result.round(0.01).\nRisk level classification: $risk.";
     }
+}
+
+method ping {
+    return my $response = 'pong!'
 }
