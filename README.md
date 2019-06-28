@@ -34,7 +34,7 @@ Create the file `config.json` in the root of the project directory. It should lo
 ```
 You will need to provide your own Discord bot token, and your own Google Perspective API token. If you do not have a Perspective API token you can follow the steps to generate one for free [here](https://github.com/conversationai/perspectiveapi/blob/master/quickstart.md#perspective-api-quickstart).
 
-If you would like Rose to perform auto-moderation actions on messages, set the `auto-moderation` configuration value to `true` and she will delete messages, warn users via DM and kick users who cross predetermined thresholds.
+If you would like Rose to perform auto-moderation actions on messages, set the `auto-moderation` configuration value to `true` and she will delete messages and/or kick users who cross predetermined thresholds.
 
 In order to see more of the inner workings of Rose, you can set `PERSPECTIVE_DEBUG=true` in your environment and she will provide a [debug emote reaction](https://github.com/kawaii/p6-rose/blob/07468651766834812a4fe6842bec863097acb647/lib/Rose/Controller/Actions.pm6#L25-L37) to all detected messages, and respond with their score from the Perspective API.
 
