@@ -55,20 +55,20 @@ There is some somewhat experimental Docker relevant material in this repository 
 
 #### ... via [`docker build`](https://docs.docker.com/engine/reference/commandline/build/)
 ```sh
-docker build \
+docker build \                
   --build-arg BUILD_AUTHORS="Kane 'kawaii' Valentine <kawaii@cute.im>" \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-  --build-arg BUILD_SHA1SUM=ae722689e2ed242138cfeb1a3cc6ee7dd14b61d0 \
-  --build-arg BUILD_VERSION=0.1rc1 \
-  --tag kawaii/rose:0.1rc1 \
+  --build-arg BUILD_SHA1SUM=b08bac18d5c66fa94e5c4a5714a5e06159bc2d73 \
+  --build-arg BUILD_VERSION=0.1rc2 \
+  --tag kawaii/rose:0.1rc2 \
+  --tag kawaii/rose:latest \
 $PWD
-
 ```
 
 #### ... via [`docker container run`](https://docs.docker.com/engine/reference/commandline/container_run/)
 
 ```
-docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc1  
+docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc2
 ```
 
 #### ... via [`docker stack deploy`](https://docs.docker.com/engine/reference/commandline/stack_deploy/) or [`docker-compose`](https://github.com/docker/compose)
@@ -78,7 +78,7 @@ services:
   rose:
     environment:
       ROSE_CONFIG: "/opt/config.json"
-    image: kawaii/rose:0.1rc1
+    image: kawaii/rose:0.1rc2
     restart: on-failure
     volumes:
     - $PWD/config.json:/opt/config.json:ro
