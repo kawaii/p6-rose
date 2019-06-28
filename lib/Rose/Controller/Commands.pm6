@@ -60,7 +60,7 @@ method toxicity-aggregate($cmd-obj) {
 }
 
 method generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour) {
-    my %embed-payload = embed => {
+    my %embed-payload =
         author => {
             icon_url => "https://cdn.discordapp.com/embed/avatars/$user-id.png",
             name => "<@$user-id>"
@@ -70,9 +70,10 @@ method generate-toxicity-embed(:$user-id, :$result, :$risk, :$colour) {
             {name => "Aggregate threat level:", value => "```$result.round(0.01)```"},
             {name => "Risk level classification:", value => "```$risk```"}
         ],
-        footer => {text => "ID: $user-id"}};
+        footer => {text => "ID: $user-id"}
+    ;
 
-    return to-json(%embed-payload);
+    return %embed-payload;
 }
 
 method ping {
