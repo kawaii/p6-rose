@@ -21,7 +21,7 @@ All of these can be obtained via [`zef install`](https://github.com/ugexe/zef) i
 - [`API::Discord`](https://github.com/shuppet/p6-api-discord)
 - [`API::Perspective`](https://github.com/shuppet/p6-api-perspective)
 - [`Command::Despatch`](https://github.com/shuppet/p6-command-despatch)
-- [`DB:Pg`](https://github.com/CurtTilmes/perl6-dbpg)
+- [`DB::Pg`](https://github.com/CurtTilmes/perl6-dbpg)
 - [`JSON::Fast`](https://github.com/timo/json_fast)
 - [libpq5/libpq-dev](https://packages.debian.org/jessie/libpq-dev)
 
