@@ -2,6 +2,14 @@
 
 Perl 6 Discord bot for content moderation and toxicity analysis. This project was created initially for [Discord Community Hack Week](https://blog.discordapp.com/discord-community-hack-week-build-and-create-alongside-us-6b2a7b7bba33). Rose performs content moderation via message analysis using Google's Perspective API. She scores users based on the percieved 'toxicity' of their messages and provides server administrators with an overall threat level metric based on aggregate results. 
 
+Want to add Rose to your own server, but don't have the time or know-how to self-host her? Click the button below!
+
+[![image](https://img.shields.io/badge/Click%20here%20to%20invite%20Rose-INVITE-blue.svg)](https://discordapp.com/oauth2/authorize?client_id=593061134307819521&permissions=134597702&scope=bot)
+
+Once she's in, check out the `+help` command to get started.
+
+Thank you for checking out our Discord Hack Week project. Good luck to all participants.
+
 ## Prerequisites
 
 ### Core
