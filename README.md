@@ -59,9 +59,9 @@ There is some somewhat experimental Docker relevant material in this repository 
 docker build \                
   --build-arg BUILD_AUTHORS="Kane 'kawaii' Valentine <kawaii@cute.im>" \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-  --build-arg BUILD_SHA1SUM=134b91152c9ba9d03387f235e25f8323f056d179 \
-  --build-arg BUILD_VERSION=0.1rc3 \
-  --tag kawaii/rose:0.1rc3 \
+  --build-arg BUILD_SHA1SUM=80549a2f1e7c35bccfd91007f3984c68b07cd4ec \
+  --build-arg BUILD_VERSION=0.1rc4 \
+  --tag kawaii/rose:0.1rc4 \
   --tag kawaii/rose:latest \
 $PWD
 ```
@@ -69,7 +69,7 @@ $PWD
 #### ... via [`docker container run`](https://docs.docker.com/engine/reference/commandline/container_run/)
 
 ```
-docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc3
+docker container run -e ROSE_CONFIG="/opt/config.json" -v $PWD/config.json:/opt/config.json:ro kawaii/rose:0.1rc4
 ```
 
 #### ... via [`docker stack deploy`](https://docs.docker.com/engine/reference/commandline/stack_deploy/) or [`docker-compose`](https://github.com/docker/compose)
@@ -79,7 +79,7 @@ services:
   rose:
     environment:
       ROSE_CONFIG: "/opt/config.json"
-    image: kawaii/rose:0.1rc3
+    image: kawaii/rose:0.1rc4
     restart: on-failure
     volumes:
     - $PWD/config.json:/opt/config.json:ro
