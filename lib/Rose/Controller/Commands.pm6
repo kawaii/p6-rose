@@ -32,8 +32,24 @@ method despatch($str, :$payload) {
 }
 
 method help {
-    ...
+    my %embed-payload =
+            color => 12543991,
+            description => 'Perl 6 Discord bot for content moderation and toxicity analysis.',
+            fields => [
+                {name => '+aggregate <@$user-id>', value => 'Run this command to get the tagged user\'s average toxicity value based on their last 200 message scores. Will also return a \'risk\' level based on this aggregate value.'},
+                {name => '+ping', value => 'A basic ping command to check that I am still alive!. :)'},
+                {name => '+help', value => 'Displays this dialogue.'}
+            ],
+            image => {
+                url => 'https://user-images.githubusercontent.com/12242877/60367703-d2d1bf80-99e6-11e9-8102-aca14491ac1c.png'
+            },
+            title => 'HackWeek::Rose', url => 'https://github.com/kawaii/p6-rose';
+
+    return embed => %embed-payload;
 }
+
+
+
 
 method toxicity-aggregate($cmd-obj) {
     my $user-id = $cmd-obj.args;
